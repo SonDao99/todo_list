@@ -1,0 +1,187 @@
+@font-face {
+    font-family: bean;
+    src: url(Beandisplay-JRyXK.ttf);
+}
+
+body {
+    background-color: #283A6A;
+    font-family: bean;
+    font-size: 30px;
+    padding: 10px;
+    height: 100%;
+}
+
+#logo {
+    font-size: 50px;
+    color: #DFE7EC;
+}
+
+button {
+    color: #141E1F;
+    background-color: #A4C2C4;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 25px;
+    cursor: pointer;
+    border-style: solid;
+    max-width: 100%;
+}
+
+button:hover {
+    background-color: #c0e1e4;
+}
+
+button:active {
+    scale: 0.9;
+}
+
+.dueDate {
+    font: inherit;
+    font-size: 25px;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.edit {
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
+}
+
+.close {
+    padding: 0;
+    font-size: 20px;
+    color: white;
+    height: 30px;
+    width: 30px;
+    background-color: darkred;
+    flex-shrink: 0;
+}
+
+.close:hover {
+    background-color: rgb(100, 1, 1);
+}
+
+#allProjects .close {
+    font-size: 15px;
+    height: 20px;
+    width: 20px;
+}
+
+#addProject, #addTodo {
+    padding: 0;
+    height: 40px;
+    width: 100%;
+    font-size: 30px;
+    background-color: transparent;
+}
+
+#addProject:hover, #addTodo:hover {
+    background-color: #DFE7EC;
+}
+
+#addProject:active, #addTodo:active {
+    background-color: #DFE7EC;
+}
+
+.project {
+    color: #141E1F;
+    background-color: #A4C2C4;
+    font-size: 25px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #DFE7EC;
+    border-width: 2px;
+}
+
+.project:hover {
+    background-color: #c0e1e4;
+}
+
+.project:active {
+    background-color: azure;
+}
+
+
+#menuAndList {
+    display: flex;
+    gap: 20px;
+    color: #DFE7EC;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #5E879D;
+    border-radius: 5px;
+    padding: 20px;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    width: 245px;
+}
+
+#sortItemsBy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+#allProjects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+#todoList {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #5E879D;
+    border-radius: 5px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    gap: 5px;
+    width: 100%;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 25px;
+    gap: 10px;
+    color: #141E1F;
+    background-color: #DFE7EC;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-overflow: clip;
+}
+
+.itemDescription {
+    cursor: pointer;
+}
+
+.itemSettings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

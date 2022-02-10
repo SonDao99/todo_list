@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <div id="content">
+        <div id="menuAndList">
+            <div id="menu">
+                <div id="logo">Todo List</div>
+                <div id="sortItemsBy">
+                    <button id="all">All</button>
+                    <button id="Today">Today</button>
+                </div>
+                <div id="allProjects">
+                    <div>Projects</div>
+                    <div class="project">
+                        <div>Personal</div>
+                        <button class="close">X</button>
+                    </div>
+                    <button id="addProject">+</button>
+                </div> 
+            </div>
+            <div id="todoList">
+                <div id="projectName">Personal</div>
+                <div class="listItem">
+                    <div class="itemDescription">Walk the dog</div>
+                    <div class="itemSettings">
+                        <div class="date"><input type="date" class="dueDate"></div>
+                        <button class="edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+                                <line x1="16" y1="5" x2="19" y2="8" />
+                            </svg>
+                        </button>
+                        <button class="close">X</button>
+                    </div>
+                </div>
+                <button id="addTodo">+</button>
+            </div>
+        </div>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+</html>

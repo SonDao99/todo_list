@@ -1,0 +1,30 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SonDao99/todo_list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SonDao99/todo_list/issues"
+  },
+  "homepage": "https://github.com/SonDao99/todo_list#readme",
+  "devDependencies": {
+    "css-loader": "^6.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "date-fns": "^2.28.0"
+  }
+}
