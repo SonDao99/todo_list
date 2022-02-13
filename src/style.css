@@ -185,3 +185,14 @@ button:active {
     align-items: center;
     gap: 5px;
 }
+
+.projectTemplate, .listTemplate {
+    display: none;
+}
+
+.textInput {
+    width: 150px;
+    font: inherit;
+    font-size: 25px;
+    border-radius: 5px;
+}

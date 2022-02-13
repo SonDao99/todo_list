@@ -1,3 +1,7 @@
 import './style.css';
 
-const content = document.querySelector('#content');
+import userInterface from './userInterface';
+
+let UI = userInterface();
+
+document.addEventListener('DOMContentLoaded', UI.buttonEventListeners());
