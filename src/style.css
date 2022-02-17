@@ -190,8 +190,15 @@ button:active {
     display: none;
 }
 
-.textInput {
+.textInputProject {
     width: 150px;
+    font: inherit;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+.textInputItem {
+    width: 300px;
     font: inherit;
     font-size: 25px;
     border-radius: 5px;

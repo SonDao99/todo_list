@@ -6,7 +6,7 @@ const projectFactory = (name) => {
     }
 
     const deleteItem = (item) => {
-        todoList = todoList.filter(task => task !== item);
+        todoList = todoList.filter(task => task.name !== item.name);
     }
 
     const getList = () => {
