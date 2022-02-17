@@ -127,6 +127,9 @@ const userInterface = () => {
                 newListItem.style.backgroundColor = '#DFE7EC';
             }
 
+            let dueDate = currentProject.getList()[i].getDate();
+            newListItem.children[1].children[0].children[0].value = dueDate;
+
             todoListDiv.insertBefore(newListItem, newTodoButton);
         }
 
@@ -139,11 +142,17 @@ const userInterface = () => {
         itemDescriptions.forEach(div => div.addEventListener('click', (e) => {
             toggleItemStatus(e)
         }))
+
+        const dateInputBoxes = document.querySelectorAll('.date');
+        dateInputBoxes.forEach(box => box.addEventListener('change', (e) => {
+            updateDate(e);
+        }))
     }
 
     const deleteProject = (e) => {
-        let projectNameDiv = document.querySelector('#projectName');
-        let newTodoButton = document.querySelector('#addTodo');
+        const projectNameDiv = document.querySelector('#projectName');
+        const newTodoButton = document.querySelector('#addTodo');
+        const todoListDiv = document.querySelector('#todoList');
 
         if (e.target.previousElementSibling.innerHTML.slice(0,6) !== '<input') {
             allProjectNames = allProjectNames.filter(project => project !== e.target.previousElementSibling.innerHTML);
@@ -152,6 +161,9 @@ const userInterface = () => {
 
             projectNameDiv.textContent = '';
             newTodoButton.style.display = 'none';
+            for (let i=todoListDiv.childElementCount-2; i > 1 ; i--) {
+                todoListDiv.children[i].remove();
+            }
         } else {
             updateProjectList();
         }
@@ -213,7 +225,9 @@ const userInterface = () => {
                 
                 //add new item to the arrays inside the correct project
                 let currentProject = allProjects.find(project => project.name === projectNameDiv.textContent.toLowerCase());
-                currentProject.addItem(todoItem(newItem.children[0].children[0].value));
+                let dueDate = newItem.children[1].children[0].children[0].value;
+
+                currentProject.addItem(todoItem(newItem.children[0].children[0].value, 'none', dueDate));
                 
                 //replace input box with name
                 newItem.children[0].innerHTML = newItem.children[0].children[0].value;
@@ -242,20 +256,6 @@ const userInterface = () => {
         }
     }
 
-    const buttonEventListeners = () => {
-        let newProjectButton = document.querySelector('#addProject');
-        newProjectButton.addEventListener('click', () => {addNewProject()});
-
-        /*let allButton = document.querySelector('#all');
-        allButton.addEventListener('click', () => {loadAllPage()});*/
-
-        /*let todayButton = document.querySelector('#today');
-        todayButton.addEventListener('click', () => {loadTodayPage()});*/
-
-        let newTodoButton = document.querySelector('#addTodo');
-        newTodoButton.addEventListener('click', () => {addNewTodo()})
-    }
-
     const toggleItemStatus = (e) => {
         if (e.target.classList[0] === 'textInputItem') {
             return;
@@ -276,6 +276,30 @@ const userInterface = () => {
             currentItem.toggleStatus();
         }
 
+    }
+
+    const updateDate = (e) => {
+        let newDate = e.target.value;
+        let currentProjectName = document.querySelector('#projectName').textContent;
+        let currentProject = allProjects.find(project => project.name === currentProjectName);
+        let currentItemName = e.target.parentNode.parentNode.parentNode.children[0].textContent;
+        let currentItem = currentProject.getList().find(item => item.name === currentItemName);
+
+        currentItem.setDate(newDate);
+    }
+
+    const buttonEventListeners = () => {
+        let newProjectButton = document.querySelector('#addProject');
+        newProjectButton.addEventListener('click', () => {addNewProject()});
+
+        /*let allButton = document.querySelector('#all');
+        allButton.addEventListener('click', () => {loadAllPage()});*/
+
+        /*let todayButton = document.querySelector('#today');
+        todayButton.addEventListener('click', () => {loadTodayPage()});*/
+
+        let newTodoButton = document.querySelector('#addTodo');
+        newTodoButton.addEventListener('click', () => {addNewTodo()})
     }
 
     return {buttonEventListeners}
