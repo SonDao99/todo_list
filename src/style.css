@@ -43,13 +43,6 @@ button:active {
     height: 25px;
 }
 
-.edit {
-    padding: 0;
-    height: 30px;
-    width: 30px;
-    flex-shrink: 0;
-}
-
 .close {
     padding: 0;
     font-size: 20px;
@@ -76,14 +69,17 @@ button:active {
     width: 100%;
     font-size: 30px;
     background-color: transparent;
+    color: #DFE7EC;
 }
 
 #addProject:hover, #addTodo:hover {
     background-color: #DFE7EC;
+    color: black;
 }
 
 #addProject:active, #addTodo:active {
     background-color: #DFE7EC;
+    color: black;
 }
 
 .project {

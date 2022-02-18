@@ -1,10 +1,11 @@
 import projectFactory from './project';
 import todoItem from './todoItem';
+import storage from './storage';
 
 const userInterface = () => {
-    let allProjectNames = [];
-    let allProjects = [];
-
+    
+    let allProjectNames = storage().getAllProjectNames();
+    let allProjects = storage().getAllProjects();
 
     const updateProjectList = () => {
         let projectTemplate = document.querySelector('.projectTemplate');
@@ -53,16 +54,22 @@ const userInterface = () => {
             //press enter to submit name
             if (e.code === 'Enter' && newProject.children[0].children[0].value.trim() !== '') {
                 
-                //add new project to the 2 arrays
-                allProjectNames.push(newProject.children[0].children[0].value);
-                allProjects.push(projectFactory(newProject.children[0].children[0].value));
+                if (allProjectNames.includes(newProject.children[0].children[0].value.trim().toLowerCase())) {
+                    alert("Two projects can't have the same name. Please try again!");
+                    return;
+                } 
 
+                //add new project to the 2 arrays
+                allProjectNames.push(newProject.children[0].children[0].value.toLowerCase());
+                allProjects.push(projectFactory(newProject.children[0].children[0].value.toLowerCase()));
+                
                 //replace input box with name
-                newProject.children[0].innerHTML = newProject.children[0].children[0].value;
+                newProject.children[0].innerHTML = newProject.children[0].children[0].value.toLowerCase();
 
                 projectNameDiv.textContent = newProject.children[0].textContent;
                 newTodoButton.style.display = 'block';
                 displayTodoItems();
+                storage().setAllProjects(allProjects);
             }
         })
 
@@ -81,9 +88,7 @@ const userInterface = () => {
     }
 
     const projectTabButton = (e) => {
-        let todoListDiv = document.querySelector('#todoList');
         let projectNameDiv = document.querySelector('#projectName');
-        let listItemTemplate = document.querySelector('.listTemplate');
         let newTodoButton = document.querySelector('#addTodo');
 
         if (e.target.classList[0] === 'textInputProject' || e.target.classList[0] === 'close' ) {
@@ -164,50 +169,11 @@ const userInterface = () => {
             for (let i=todoListDiv.childElementCount-2; i > 1 ; i--) {
                 todoListDiv.children[i].remove();
             }
+            storage().setAllProjects(allProjects);
         } else {
             updateProjectList();
         }
     }
-
-    /*const loadAllPage = () => {
-        let todoListDiv = document.querySelector('#todoList');
-        let projectNameDiv = document.querySelector('#projectName');
-        let listItemTemplate = document.querySelector('.listTemplate');
-        let newTodoButton = document.querySelector('#addTodo');
-
-        newTodoButton.style.display = 'none';
-
-        projectNameDiv.textContent = "all";
-
-        for (let i=todoListDiv.childElementCount-2; i > 1 ; i--) {
-            todoListDiv.children[i].remove();
-        }
-
-        for (let i=0; i<allProjects.length; i++) {
-            for (let j=0; j<allProjects[i].getList().length; j++) {
-                let newListItem = listItemTemplate.cloneNode(true);
-                newListItem.classList.remove('listTemplate');
-                newListItem.children[0].textContent = allProjects[i].getList()[j].name;
-                todoListDiv.insertBefore(newListItem, newTodoButton);
-            }
-        }
-    }*/
-
-    /*const loadTodayPage = () => {
-        let todoListDiv = document.querySelector('#todoList');
-        let projectNameDiv = document.querySelector('#projectName');
-        let listItemTemplate = document.querySelector('.listTemplate');
-        let newTodoButton = document.querySelector('#addTodo');
-
-        newTodoButton.style.display = 'none';
-
-        projectNameDiv.textContent = "today";
-
-        for (let i=todoListDiv.childElementCount-2; i > 1 ; i--) {
-            todoListDiv.children[i].remove();
-        }
-
-    }*/
 
     const addNewTodo = () => {
         const todoListDiv = document.querySelector('#todoList');
@@ -222,9 +188,19 @@ const userInterface = () => {
         newItem.children[0].children[0].addEventListener('keydown', (event) => {
             //press enter to submit
             if (event.code === 'Enter' && newItem.children[0].children[0].value.trim() !== '') {
-                
+
                 //add new item to the arrays inside the correct project
                 let currentProject = allProjects.find(project => project.name === projectNameDiv.textContent.toLowerCase());
+                let allItemNames = [];
+                for (let i=0; i<currentProject.getList().length; i++) {
+                    allItemNames.push(currentProject.getList()[i].name);
+                }
+                if (allItemNames.includes(newItem.children[0].children[0].value.trim().toLowerCase())) {
+                    alert("Two tasks can't be the same. Please try again!");
+                    return;
+                }
+
+                
                 let dueDate = newItem.children[1].children[0].children[0].value;
 
                 currentProject.addItem(todoItem(newItem.children[0].children[0].value, 'none', dueDate));
@@ -233,6 +209,7 @@ const userInterface = () => {
                 newItem.children[0].innerHTML = newItem.children[0].children[0].value;
 
                 displayTodoItems();
+                storage().setAllProjects(allProjects);
             }
         })
 
@@ -251,6 +228,7 @@ const userInterface = () => {
         if (e.target.parentNode.parentNode.children[0].innerHTML.slice(0,6) !== '<input') {
             currentProject.deleteItem(todoItem(e.target.parentNode.parentNode.children[0].textContent));
             displayTodoItems();
+            storage().setAllProjects(allProjects);
         } else if (e.target.parentNode.parentNode.children[0].innerHTML.slice(0,6) === '<input') {
             displayTodoItems();
         }
@@ -276,6 +254,7 @@ const userInterface = () => {
             currentItem.toggleStatus();
         }
 
+        storage().setAllProjects(allProjects);
     }
 
     const updateDate = (e) => {
@@ -286,20 +265,19 @@ const userInterface = () => {
         let currentItem = currentProject.getList().find(item => item.name === currentItemName);
 
         currentItem.setDate(newDate);
+        storage().setAllProjects(allProjects);
     }
 
     const buttonEventListeners = () => {
+
         let newProjectButton = document.querySelector('#addProject');
         newProjectButton.addEventListener('click', () => {addNewProject()});
 
-        /*let allButton = document.querySelector('#all');
-        allButton.addEventListener('click', () => {loadAllPage()});*/
-
-        /*let todayButton = document.querySelector('#today');
-        todayButton.addEventListener('click', () => {loadTodayPage()});*/
-
         let newTodoButton = document.querySelector('#addTodo');
-        newTodoButton.addEventListener('click', () => {addNewTodo()})
+        newTodoButton.addEventListener('click', () => {addNewTodo()});
+
+        updateProjectList();
+
     }
 
     return {buttonEventListeners}
